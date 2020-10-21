@@ -1,0 +1,153 @@
+
+<style>
+
+  :host {
+    display: block;
+  }
+
+  #overlay {
+    --overlay-toolbar-background-color: rgba(0, 0, 0, 0);
+  }
+
+  #content {
+    position: relative;
+    top:      -96px;
+  }
+
+  #header-image {
+    --iron-image-width: 100%;
+    width:              100%;
+    margin-bottom:     -8px;
+    background-color:   var(--app-background-color);
+  }
+
+  .divider {
+    fill: var(--app-primary-color);
+  }
+
+  #words {
+    max-width: 414px;
+    margin:    32px auto;
+    padding:   16px;
+  }
+
+  .details {
+    margin-top:  48px;
+    white-space: pre-wrap;
+  }
+
+  .bullet-points-wrapper {
+    display:     flex;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-left:   16px;
+  }
+
+  .bullet {
+    width: 16px;
+    height: 16px;
+    min-height: 16px;
+    min-width: 16px;
+    padding-right: 8px;
+    color: var(--app-light-color);;
+  }
+
+  a {
+    color: var(--app-accent-color);
+    text-decoration: none;
+  }
+
+  #image-wrapper {
+    position: relative;
+  }
+
+  #gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: radial-gradient(circle at bottom, rgba(255, 255, 255, 0) 57%, rgba(0, 0, 0, 0.5) 85%); 
+  }
+
+  #fab {
+    position:         fixed;
+    right:            16px;
+    bottom:           16px;
+    background-color: var(--app-accent-color);
+    color:            white;
+  }
+
+  #fab[hidden] {
+    display: none;
+  }
+
+  .fab-entry {
+    animation: zoomInRight .7s;
+  }
+  
+  @keyframes zoomInRight {
+    from {
+      opacity: 0;
+      transform: scale3d(0.1, 0.1, 0.1) translate3d(500px, 0, 0);
+      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+
+    60% {
+      opacity: 1;
+      transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
+      animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+    }
+  }
+
+</style>
+
+
+<app-header-overlay id="overlay"
+                    prebuilt-animation="from-left"
+                    title="[[_eventItem.title]]"
+                    bottom-toolbar-text=" ">
+  <div slot="content" id="content">
+
+    <div id="image-wrapper">  
+      <iron-image id="header-image" 
+                  src="[[_eventItem.url]]" 
+                  fade 
+                  preload>
+      </iron-image>
+      <div id="gradient"></div> 
+    </div>
+
+    <svg viewBox="0 0 343 25">
+      <polygon class="divider" points="0 0 40.5 25 350 0 0 0"/>
+    </svg>
+
+    <div id="words">
+      <asg-event-info event-item="[[_eventItem]]"></asg-event-info>
+      <p class="details">[[_eventItem.details]]</p>
+      <template id="repeater" 
+                is="dom-repeat" 
+                items="[[_eventItem.bullets]]">
+        <div class="bullet-points-wrapper">
+          <iron-icon class="bullet" icon="asg-icons:logo"></iron-icon>
+          [[item]]
+        </div>
+      </template>
+      <div hidden="[[__computeHideLink(_eventItem.rulesLinkLabel)]]">
+        <div class="bullet-points-wrapper">
+          <iron-icon class="bullet" icon="asg-icons:logo"></iron-icon>
+          <span>Full rules at 
+            <a href="[[_eventItem.rulesLink]]" target="_blank">[[_eventItem.rulesLinkLabel]]</a>
+          </span>
+        </div>
+      </div>    
+    </div>
+    
+    <paper-fab id="fab" 
+               hidden="[[__computeFabHidden(_eventItem)]]"
+               icon="app-icons:event-seat"
+               on-click="__openRegistration">
+    </paper-fab>    
+
+  </div>
+</app-header-overlay>
