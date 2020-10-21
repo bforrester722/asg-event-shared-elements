@@ -1,0 +1,56 @@
+
+<style>
+
+  :host {
+    display:    block;
+    max-width:  400px;
+    min-height: 400px;
+    margin:     0px auto 48px auto;
+  }
+
+  paper-card {
+    display:          flex;
+    flex-direction:   column;
+    background-color: var(--app-background-color);
+    overflow:         hidden;
+  }
+  
+  iron-image {
+    min-height:         256px;
+    --iron-image-width: 100%;
+    width:              100%;
+    background-color:   var(--app-background-color);
+  }
+
+  .divider {
+    fill: var(--app-primary-color);
+  }
+
+  paper-fab {
+    background-color: var(--app-accent-color);
+    color:            var(--light-text-color);
+    position:         absolute;
+    top:             -42px;
+    right:            16px;
+  }
+
+</style>
+
+
+<paper-card>
+  <iron-image src="[[_imageUrl]]" 
+              sizing="cover" 
+              preload 
+              fade
+              alt="ASG event picture">
+  </iron-image>
+  <svg viewBox="0 0 343 25"><polygon class="divider" points="0 0 40.5 25 343 0 0 0"/></svg>
+  <div class="card-content">
+    <paper-fab mini 
+               icon="asg-icons:description" 
+               on-click="__openDetails" 
+               aria-label="Featured Event details button">
+    </paper-fab>
+    <asg-event-info event-item="[[eventItem]]"></asg-event-info>    
+  </div>
+</paper-card>

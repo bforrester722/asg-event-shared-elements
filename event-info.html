@@ -1,0 +1,77 @@
+
+<style>
+
+  :host {
+    display: block;
+  }
+
+  .heading {
+    @apply --title-mixin;
+    color:       var(--dark-text-color);
+    font-weight: bold;
+  }
+
+  .stats,
+  .margin-top-16 {
+    margin-top: 16px;
+  } 
+
+  .info {
+    font-size: 18px;
+  }
+
+  .icon-container {
+    display:     flex;
+    align-items: center;
+    margin-top:  8px;
+  }
+
+  iron-icon {
+    min-width:    24px;
+    margin-right: 8px;
+    color:        var(--app-accent-color);
+  }
+
+  div[hidden],
+  span[hidden] {
+    display: none;
+  }
+
+  .secondary-text {
+    color: var(--secondary-text-color);
+  }
+
+</style>
+
+
+<div class="heading">[[eventItem.title]]</div>
+<div class="stats">
+  <div class="info icon-container">
+    <iron-icon icon="app-icons:event"></iron-icon>
+    [[eventItem.date]]
+  </div>
+  <div class="icon-container">
+    <iron-icon icon="app-icons:attach-money"></iron-icon>
+    <span class="info" 
+          hidden="[[!_feeHidden]]">
+      Free!
+    </span>
+    <div hidden="[[_feeHidden]]">          
+      <span class="info">[[eventItem.fee]]</span>
+      <span class="secondary-text">seat
+      </span>
+    </div>        
+  </div>
+  <div class="icon-container" 
+       hidden="[[_seatsHidden]]">
+    <iron-icon icon="app-icons:event-seat"></iron-icon>
+    <div>
+      <span class="info">[[eventItem.seats]]</span>
+      <span class="secondary-text">seats left</span>
+    </div>     
+  </div>
+  <div class="margin-top-16 secondary-text" 
+       hidden="[[_seatsHidden]]">
+    Register now to save your seat!
+  </div>
+</div>
